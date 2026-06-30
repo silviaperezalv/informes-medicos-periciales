@@ -36,7 +36,16 @@ window.addEventListener('scroll', function() {
   });
 })();
 
-// ==================== VALIDACIÓN Y ENVÍO DE FORMULARIO ====================
+// ==================== VALIDACIÓN Y ENVÍO DE FORMULARIO (EmailJS) ====================
+// Claves de EmailJS (emailjs.com) — gratis hasta 200 emails/mes
+const EMAILJS_PUBLIC_KEY = 'kLFGQaG0OsFSiMEfl';
+const EMAILJS_SERVICE_ID = 'service_0w9lz0r';
+const EMAILJS_TEMPLATE_ID = 'template_2e0jado';
+
+if (window.emailjs) {
+  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+}
+
 const formulario = document.getElementById('formularioContacto');
 
 if (formulario) {
@@ -59,20 +68,36 @@ if (formulario) {
       return;
     }
 
-    guardarSolicitud({
-      nombre,
-      email,
-      telefono,
-      tipo,
-      mensaje,
-      fecha: new Date().toLocaleString('es-ES')
+    // La plantilla de EmailJS solo tiene {{name}} y {{message}}, así que
+    // metemos todos los datos del formulario dentro de "message".
+    const mensajeCompleto =
+      'Email: ' + email + '\n' +
+      'Teléfono: ' + (telefono || '(no indicado)') + '\n' +
+      'Tipo de caso: ' + tipo + '\n\n' +
+      'Mensaje:\n' + mensaje;
+
+    const submitBtn = formulario.querySelector('button[type="submit"]');
+    if (submitBtn) submitBtn.disabled = true;
+
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+      name: nombre,
+      email: email,
+      message: mensajeCompleto
+    }).then(function () {
+      mostrarMensaje('✓ Solicitud enviada correctamente. Nos pondremos en contacto pronto.', 'success');
+      formulario.reset();
+    }).catch(function (err) {
+      console.error('Error enviando el formulario con EmailJS:', err);
+      mostrarMensaje('No se pudo enviar el formulario. Inténtalo de nuevo o escríbenos directamente por email.', 'error');
+    }).finally(function () {
+      if (submitBtn) submitBtn.disabled = false;
     });
 
-    mostrarMensaje('✓ Solicitud enviada correctamente. Nos pondremos en contacto pronto.', 'success');
-
-    formulario.reset();
-
-    enviarPorWhatsApp(nombre, email, telefono, tipo, mensaje);
+    // Guardamos también una copia local como respaldo (no sustituye el email)
+    guardarSolicitud({
+      nombre, email, telefono, tipo, mensaje,
+      fecha: new Date().toLocaleString('es-ES')
+    });
   });
 }
 
