@@ -437,13 +437,185 @@ header.scrolled .logo {
 
 .sobre-grid--text-only {
   grid-template-columns: 1fr;
-  max-width: 760px;
+  max-width: 1140px;
   margin: 0 auto;
   text-align: left;
 }
 
 .sobre-grid--text-only .sobre-text h2 {
   text-align: left;
+}
+
+/* ==================== TRAYECTORIA (3 columnas) ==================== */
+.trayectoria-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 50px;
+  margin: 10px 0 45px;
+}
+
+.trayectoria-col {
+  padding-right: 40px;
+  border-right: 1px solid var(--color-border);
+}
+
+.trayectoria-col:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+
+.trayectoria-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin: 0 0 22px;
+}
+
+.check-list {
+  list-style: none;
+  margin-bottom: 0;
+}
+
+.check-list li {
+  position: relative;
+  padding-left: 24px;
+  margin-bottom: 14px;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--color-text-light);
+}
+
+.check-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.formacion-extra {
+  margin-top: 8px;
+}
+
+.formacion-extra summary {
+  cursor: pointer;
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 14px;
+  list-style: none;
+}
+
+.formacion-extra summary::-webkit-details-marker {
+  display: none;
+}
+
+.formacion-extra summary::after {
+  content: " →";
+  transition: margin-left 0.2s ease;
+}
+
+.formacion-extra summary:hover::after {
+  margin-left: 4px;
+}
+
+.formacion-extra[open] .check-list {
+  margin-top: 16px;
+}
+
+.timeline-list {
+  list-style: none;
+  position: relative;
+  padding-left: 26px;
+  margin: 0;
+}
+
+.timeline-list li {
+  position: relative;
+  padding-bottom: 28px;
+}
+
+.timeline-list li:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-list li::before {
+  content: "";
+  position: absolute;
+  left: -26px;
+  top: 5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--color-primary);
+  background: white;
+  z-index: 1;
+}
+
+.timeline-list li::after {
+  content: "";
+  position: absolute;
+  left: -22px;
+  top: 15px;
+  bottom: -6px;
+  width: 1px;
+  background: var(--color-border);
+}
+
+.timeline-list li:last-child::after {
+  display: none;
+}
+
+.timeline-list li strong {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 4px;
+}
+
+.timeline-list li p {
+  font-size: 14.5px;
+  color: var(--color-text-light);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.reconocimiento-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.reconocimiento-icon {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  color: var(--color-accent);
+}
+
+.reconocimiento-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.reconocimiento-title {
+  font-weight: 600;
+  font-size: 14.5px;
+  color: var(--color-text);
+  line-height: 1.5;
+  margin: 0 0 8px;
+}
+
+.reconocimiento-desc {
+  font-size: 13.5px;
+  color: var(--color-text-light);
+  line-height: 1.6;
+  margin: 0;
 }
 
 /* ==================== METODOLOGÍA SECTION ==================== */
@@ -680,6 +852,23 @@ footer {
   .contacto-content {
     grid-template-columns: 1fr;
     gap: 40px;
+  }
+
+  .trayectoria-grid {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+
+  .trayectoria-col {
+    padding-right: 0;
+    padding-bottom: 30px;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .trayectoria-col:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
   }
 
   .hero-inner {
