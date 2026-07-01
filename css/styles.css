@@ -645,8 +645,8 @@ header.scrolled .logo {
 
 .reconocimiento-icon {
   flex-shrink: 0;
-  width: 64px;
-  margin-top: 2px;
+  width: 90px;
+  margin-top: 0;
 }
 
 .reconocimiento-icon img {
