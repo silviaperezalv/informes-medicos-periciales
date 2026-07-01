@@ -640,13 +640,14 @@ header.scrolled .logo {
 
 .reconocimiento-item {
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
-  gap: 16px;
+  gap: 18px;
 }
 
 .reconocimiento-icon {
   flex-shrink: 0;
-  width: 90px;
+  width: 110px;
   margin-top: 0;
 }
 
