@@ -341,18 +341,19 @@ header.scrolled .logo {
   gap: 40px;
 }
 
-.servicio-card {
-  padding: 40px;
-  background: #ffffff;
-  border-radius: 12px;
-  border: 1px solid var(--color-border);
-  border-left: 3px solid var(--color-primary);
-  transition: all 0.3s ease;
+.servicio-card{
+    padding: 46px;
+    background:#fff;
+    border:1px solid #E8E4DE;
+    border-radius:22px;
+    transition: all .35s ease;
 }
 
-.servicio-card:hover {
-  box-shadow: 0 15px 40px rgba(46, 60, 54, 0.08);
-  transform: translateY(-5px);
+.servicio-card:hover{
+    transform:translateY(-8px);
+    box-shadow:
+        0 12px 40px rgba(0,0,0,.05),
+        0 2px 8px rgba(0,0,0,.04);
 }
 
 .servicio-icon {
@@ -632,7 +633,7 @@ header.scrolled .logo {
 
 .reconocimiento-card {
   border: 1px solid var(--color-border);
-  border-radius: 10px;
+  border-radius:22px;
   padding: 36px 32px;
   background: #ffffff;
 }
@@ -687,7 +688,7 @@ header.scrolled .logo {
   text-align: center;
   padding: 40px;
   background: #FAFAF8;
-  border-radius: 12px;
+  border-radius:22px;
   border: 1px solid var(--color-border);
   transition: all 0.3s ease;
 }
@@ -785,7 +786,7 @@ header.scrolled .logo {
 .contacto-form {
   background: white;
   padding: 50px;
-  border-radius: 12px;
+  border-radius:22px;
   border: 1px solid var(--color-border);
   box-shadow: 0 12px 40px rgba(46, 60, 54, 0.06);
 }
