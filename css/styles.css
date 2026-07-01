@@ -236,25 +236,21 @@ header.scrolled .logo {
 /* ==================== HERO SECTION ==================== */
 .hero {
   position: relative;
-  min-height: auto;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  padding-top: 0;
   background: var(--color-bg-light);
+  overflow: hidden;
 }
 
-.hero .container-hero {
-  position: relative;
-  z-index: 2;
-  width: 90%;
-  max-width: 1300px;
-  margin: auto;
-  padding: 160px 0 120px;
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  min-height: 680px;
 }
 
 .hero-text {
   max-width: 560px;
+  padding-left: max(5vw, calc((100vw - 1300px) / 2));
+  padding-right: 40px;
 }
 
 .hero-text .eyebrow {
@@ -274,9 +270,9 @@ header.scrolled .logo {
 
 .hero-image {
   position: relative;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 20px 50px rgba(46, 60, 54, 0.1);
+  height: 100%;
+  min-height: 680px;
+  align-self: stretch;
 }
 
 .hero-image::before {
@@ -286,8 +282,9 @@ header.scrolled .logo {
   z-index: 1;
   background: linear-gradient(
     90deg,
-    rgba(247, 246, 243, 0.35) 0%,
-    rgba(247, 246, 243, 0) 18%
+    var(--color-bg-light) 0%,
+    rgba(247, 246, 243, 0.5) 6%,
+    rgba(247, 246, 243, 0) 20%
   );
   pointer-events: none;
 }
@@ -297,7 +294,7 @@ header.scrolled .logo {
   height: 100%;
   display: block;
   object-fit: cover;
-  object-position: 75% center;
+  object-position: 65% center;
 }
 
 /* ==================== SECTION HEADERS ==================== */
@@ -488,7 +485,7 @@ header.scrolled .logo {
 /* ==================== CONTACTO SECTION ==================== */
 .contacto {
   padding: 120px 0;
-  background: var(--color-bg-light);
+  background: #EAF0EC;
 }
 
 .contacto-content {
@@ -658,15 +655,33 @@ footer {
 
 /* ==================== RESPONSIVE ==================== */
 @media (max-width: 1024px) {
-  .container-hero,
   .sobre-grid,
   .contacto-content {
     grid-template-columns: 1fr;
     gap: 40px;
   }
 
-  .hero-image img {
+  .hero-inner {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .hero-text {
+    max-width: none;
+    padding: 140px 5vw 60px;
+  }
+
+  .hero-image {
     height: 320px;
+    min-height: 320px;
+  }
+
+  .hero-image::before {
+    background: linear-gradient(
+      180deg,
+      var(--color-bg-light) 0%,
+      rgba(247, 246, 243, 0) 12%
+    );
   }
 
   .metodologia-steps {
@@ -679,10 +694,6 @@ footer {
 
   h2 {
     font-size: 42px;
-  }
-
-  .hero .container-hero {
-    padding: 140px 0 80px;
   }
 }
 
@@ -757,12 +768,8 @@ footer {
     font-size: 32px;
   }
 
-  .hero {
-    min-height: 70vh;
-  }
-
-  .hero .container-hero {
-    padding: 120px 0 60px;
+  .hero-text {
+    padding: 120px 5vw 50px;
   }
 
   .servicios-grid,
