@@ -449,7 +449,7 @@ header.scrolled .logo {
 /* ==================== TRAYECTORIA (3 columnas) ==================== */
 .trayectoria-grid {
   display: grid;
-  grid-template-columns: 0.85fr 1.3fr 0.85fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 50px;
   margin: 10px 0 45px;
 }
