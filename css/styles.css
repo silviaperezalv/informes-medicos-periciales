@@ -33,8 +33,9 @@ body {
 }
 
 .container {
-  width: min(92%, 1320px);
-  margin: 0 auto;
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
 }
 
 .container-hero {
@@ -61,10 +62,9 @@ h1 {
 }
 
 h2 {
-  font-size: 58px;
-  line-height: 1;
-  margin-bottom: 28px;
-  letter-spacing: -1px;
+  font-size: 56px;
+  line-height: 1.1;
+  margin-bottom: 20px;
 }
 
 h3 {
@@ -88,6 +88,18 @@ p {
   margin-bottom: 15px;
 }
 
+/* ==================== BOTONES ==================== */
+.btn {
+  display: inline-block;
+  padding: 16px 34px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+  font-size: 16px;
+}
 
 .btn-primary {
   background: var(--color-primary);
@@ -247,7 +259,7 @@ header.scrolled .logo {
 .hero-inner {
   display: flex;
   align-items: stretch;
-  min-height: 760px;
+  min-height: 620px;
 }
 
 .hero-text {
@@ -309,12 +321,12 @@ header.scrolled .logo {
 /* ==================== SECTION HEADERS ==================== */
 .section-header {
   text-align: center;
-  margin-bottom: 110px;
+  margin-bottom: 80px;
 }
 
-.section-header p{
-    max-width:720px;
-    margin:28px auto 0;
+.section-header p {
+  max-width: 600px;
+  margin: 20px auto 0;
 }
 
 /* ==================== SERVICIOS SECTION ==================== */
@@ -329,19 +341,18 @@ header.scrolled .logo {
   gap: 40px;
 }
 
-.servicio-card{
-    padding: 46px;
-    background:#fff;
-    border:1px solid #E8E4DE;
-    border-radius:22px;
-    transition: all .35s ease;
+.servicio-card {
+  padding: 40px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-primary);
+  transition: all 0.3s ease;
 }
 
-.servicio-card:hover{
-    transform:translateY(-8px);
-    box-shadow:
-        0 12px 40px rgba(0,0,0,.05),
-        0 2px 8px rgba(0,0,0,.04);
+.servicio-card:hover {
+  box-shadow: 0 15px 40px rgba(46, 60, 54, 0.08);
+  transform: translateY(-5px);
 }
 
 .servicio-icon {
@@ -438,7 +449,7 @@ header.scrolled .logo {
 /* ==================== TRAYECTORIA (3 columnas) ==================== */
 .trayectoria-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 0.85fr 1.3fr 0.85fr;
   gap: 50px;
   margin: 10px 0 45px;
 }
@@ -621,21 +632,20 @@ header.scrolled .logo {
 
 .reconocimiento-card {
   border: 1px solid var(--color-border);
-  border-radius:22px;
+  border-radius: 10px;
   padding: 36px 32px;
   background: #ffffff;
 }
 
 .reconocimiento-item {
   display: flex;
-  flex-direction: column;
   align-items: flex-start;
-  gap: 18px;
+  gap: 16px;
 }
 
 .reconocimiento-icon {
   flex-shrink: 0;
-  width: 110px;
+  width: 90px;
   margin-top: 0;
 }
 
@@ -677,7 +687,7 @@ header.scrolled .logo {
   text-align: center;
   padding: 40px;
   background: #FAFAF8;
-  border-radius:22px;
+  border-radius: 12px;
   border: 1px solid var(--color-border);
   transition: all 0.3s ease;
 }
@@ -775,7 +785,7 @@ header.scrolled .logo {
 .contacto-form {
   background: white;
   padding: 50px;
-  border-radius:22px;
+  border-radius: 12px;
   border: 1px solid var(--color-border);
   box-shadow: 0 12px 40px rgba(46, 60, 54, 0.06);
 }
