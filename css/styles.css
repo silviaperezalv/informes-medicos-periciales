@@ -88,15 +88,6 @@ p {
   margin-bottom: 15px;
 }
 
-/* ==================== BOTONES ==================== */
-.btn{
-
-    transition:
-        transform .25s ease,
-        background .25s ease,
-        box-shadow .25s ease;
-
-}
 
 .btn-primary {
   background: var(--color-primary);
