@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear tu cuenta — Dra. Pérez Álvarez</title>
+  <meta name="robots" content="noindex">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+</head>
+
+<body>
+
+  <!-- ==================== HEADER ==================== -->
+  <header>
+    <nav class="container">
+      <a href="index.html" class="logo-wrapper" style="text-decoration:none;">
+        <img src="img/logo.png" alt="Dra. Silvia Pérez Álvarez" class="logo">
+        <span class="logo-wordmark">Dra. Silvia<br>Pérez Álvarez</span>
+      </a>
+    </nav>
+  </header>
+
+  <!-- ==================== CREAR CUENTA ==================== -->
+  <section class="auth-page">
+    <div class="auth-card">
+      <span class="eyebrow">ÁREA PRIVADA</span>
+      <h1>Crea tu contraseña</h1>
+      <p class="auth-subtitle">Ya tenemos los datos de tu solicitud. Elige una contraseña para acceder a tu panel y seguir el estado de tu caso.</p>
+
+      <form id="signupForm" class="auth-form" novalidate>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required readonly style="background:#F7F6F3;">
+        </div>
+
+        <div class="form-group">
+          <label for="password">Contraseña</label>
+          <input type="password" id="password" name="password" minlength="8" required autocomplete="new-password">
+          <small style="display:block; margin-top:6px; color:var(--color-text-light); font-size:13px;">Mínimo 8 caracteres.</small>
+        </div>
+
+        <p id="authError" class="auth-error" hidden></p>
+        <p id="authSuccess" class="auth-error" style="color:var(--color-primary);" hidden></p>
+
+        <button type="submit" class="btn btn-primary btn-block" id="signupBtn">Crear cuenta</button>
+      </form>
+
+      <p class="auth-help">¿Ya tienes cuenta? <a href="login.html">Entra aquí</a>.</p>
+    </div>
+  </section>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const datosSolicitud = {
+      nombre: params.get('nombre') || '',
+      email: params.get('email') || '',
+      telefono: params.get('telefono') || '',
+      tipo: params.get('tipo') || '',
+      mensaje: params.get('mensaje') || ''
+    };
+
+    document.getElementById('email').value = datosSolicitud.email;
+
+    const form = document.getElementById('signupForm');
+    const errorEl = document.getElementById('authError');
+    const successEl = document.getElementById('authSuccess');
+    const btn = document.getElementById('signupBtn');
+
+    function showError(msg) {
+      successEl.hidden = true;
+      errorEl.textContent = msg;
+      errorEl.hidden = false;
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+    });
+
+    if (typeof window.supabase === 'undefined') {
+      showError('No se ha podido cargar el sistema. Recarga la página o pruébalo en otro navegador.');
+    } else if (!datosSolicitud.email || !datosSolicitud.tipo) {
+      showError('Este enlace no incluye los datos de tu solicitud. Usa el enlace del email que te enviamos, o contacta con la clínica.');
+    } else {
+      const SUPABASE_URL = 'https://wijnmofhphfcnsioyvxw.supabase.co';
+      const SUPABASE_KEY = 'sb_publishable_BsBDw028Yev-jqYTPrPL2A_Ol0cAXkk';
+      const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        errorEl.hidden = true;
+        successEl.hidden = true;
+        btn.disabled = true;
+        btn.textContent = 'Creando cuenta...';
+
+        const password = document.getElementById('password').value;
+
+        const { error } = await sb.auth.signUp({
+          email: datosSolicitud.email,
+          password: password,
+          options: {
+            data: {
+              full_name: datosSolicitud.nombre,
+              phone: datosSolicitud.telefono,
+              tipo: datosSolicitud.tipo,
+              descripcion: datosSolicitud.mensaje
+            },
+            emailRedirectTo: window.location.origin + window.location.pathname.replace('crear-cuenta.html', '') + 'login.html'
+          }
+        });
+
+        if (error) {
+          if (error.message && error.message.toLowerCase().includes('already registered')) {
+            showError('Ya existe una cuenta con este email. Entra directamente en tu panel.');
+          } else {
+            showError('No se pudo crear tu cuenta. Inténtalo de nuevo o contacta con la clínica.');
+          }
+          btn.disabled = false;
+          btn.textContent = 'Crear cuenta';
+          return;
+        }
+
+        form.hidden = true;
+        successEl.textContent = '✓ Cuenta creada. Revisa tu email para confirmarla, y después entra en tu panel.';
+        successEl.hidden = false;
+      });
+    }
+  </script>
+
+</body>
+</html>
