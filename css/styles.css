@@ -633,7 +633,7 @@ header.scrolled .logo {
 .reconocimiento-card {
   border: 1px solid var(--color-border);
   border-radius: 10px;
-  padding: 28px;
+  padding: 36px 32px;
   background: #ffffff;
 }
 
@@ -645,7 +645,7 @@ header.scrolled .logo {
 
 .reconocimiento-icon {
   flex-shrink: 0;
-  width: 48px;
+  width: 64px;
   margin-top: 2px;
 }
 
