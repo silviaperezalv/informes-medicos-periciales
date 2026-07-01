@@ -449,7 +449,7 @@ header.scrolled .logo {
 /* ==================== TRAYECTORIA (3 columnas) ==================== */
 .trayectoria-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 0.85fr 1.3fr 0.85fr;
   gap: 50px;
   margin: 10px 0 45px;
 }
@@ -639,14 +639,13 @@ header.scrolled .logo {
 
 .reconocimiento-item {
   display: flex;
-  flex-direction: column;
   align-items: flex-start;
-  gap: 18px;
+  gap: 16px;
 }
 
 .reconocimiento-icon {
   flex-shrink: 0;
-  width: 110px;
+  width: 90px;
   margin-top: 0;
 }
 
