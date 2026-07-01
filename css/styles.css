@@ -506,8 +506,8 @@ header.scrolled .logo {
 
 .check-icon {
   flex-shrink: 0;
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   background: #EFECE6;
   color: var(--color-primary);
@@ -515,11 +515,9 @@ header.scrolled .logo {
   align-items: center;
   justify-content: center;
   margin-top: 1px;
-}
-
-.check-icon svg {
-  width: 13px;
-  height: 13px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
 }
 
 .check-list li strong {
