@@ -510,14 +510,20 @@ header.scrolled .logo {
   height: 26px;
   border-radius: 50%;
   background: #EFECE6;
-  color: var(--color-primary);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-top: 1px;
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 1;
+}
+
+.check-icon::before {
+  content: "";
+  width: 7px;
+  height: 11px;
+  border-right: 2px solid var(--color-primary);
+  border-bottom: 2px solid var(--color-primary);
+  transform: rotate(40deg);
+  margin-top: -2px;
 }
 
 .check-list li strong {
