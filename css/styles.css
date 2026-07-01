@@ -89,16 +89,22 @@ p {
 }
 
 /* ==================== BOTONES ==================== */
-.btn {
-  display: inline-block;
-  padding: 16px 34px;
-  border-radius: 8px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  border: none;
-  font-size: 16px;
+.btn{
+
+    transition:
+        transform .25s ease,
+        background .25s ease,
+        box-shadow .25s ease;
+
+}
+
+.btn:hover{
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 25px rgba(58,92,74,.18);
+
 }
 
 .btn-primary {
@@ -1580,4 +1586,32 @@ footer {
 .reveal.active {
     opacity: 1;
     transform: translateY(0);
+}
+header{
+
+    transition:
+        background .35s ease,
+        box-shadow .35s ease,
+        padding .35s ease;
+
+}
+
+header.scrolled{
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.08);
+
+}
+.btn span{
+
+    display:inline-block;
+
+    transition:.3s;
+
+}
+
+.btn:hover span{
+
+    transform:translateX(6px);
+
 }
