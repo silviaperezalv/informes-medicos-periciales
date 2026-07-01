@@ -111,6 +111,21 @@ p {
   transform: translateY(-2px);
 }
 
+.btn-hero {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 26px;
+}
+
+.btn-hero svg {
+  transition: transform 0.25s ease;
+}
+
+.btn-hero:hover svg {
+  transform: translateX(4px);
+}
+
 .btn-block {
   display: block;
   width: 100%;
@@ -244,13 +259,14 @@ header.scrolled .logo {
 .hero-inner {
   display: flex;
   align-items: stretch;
-  min-height: 680px;
+  min-height: 620px;
 }
 
 .hero-text {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding-bottom: 60px;
   flex: 1;
   max-width: 560px;
   padding-left: max(5vw, calc((100vw - 1300px) / 2));
