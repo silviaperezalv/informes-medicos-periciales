@@ -35,14 +35,6 @@ window.addEventListener('scroll', function() {
     link.addEventListener('click', closeMenu);
   });
 })();
-
-// ==================== CUENTA DE CLIENTE (Supabase) ====================
-const SUPABASE_URL = 'https://wijnmofhphfcnsioyvxw.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_BsBDw028Yev-jqYTPrPL2A_Ol0cAXkk';
-const sb = (typeof window.supabase !== 'undefined')
-  ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
-  : null;
-
 // ==================== VALIDACIÓN Y ENVÍO DE FORMULARIO (EmailJS) ====================
 // Claves de EmailJS (emailjs.com) — gratis hasta 200 emails/mes
 const EMAILJS_PUBLIC_KEY = 'kLFGQaG0OsFSiMEfl';
@@ -56,7 +48,7 @@ if (window.emailjs) {
 const formulario = document.getElementById('formularioContacto');
 
 if (formulario) {
-  formulario.addEventListener('submit', async function(e) {
+  formulario.addEventListener('submit', function(e) {
     e.preventDefault();
 
     const nombre = document.getElementById('nombre').value.trim();
@@ -64,9 +56,8 @@ if (formulario) {
     const telefono = document.getElementById('telefono').value.trim();
     const tipo = document.getElementById('tipo').value;
     const mensaje = document.getElementById('mensaje').value.trim();
-    const password = document.getElementById('password').value;
 
-    if (!nombre || !email || !tipo || !mensaje || !password) {
+    if (!nombre || !email || !tipo || !mensaje) {
       mostrarMensaje('Por favor completa todos los campos obligatorios.', 'error');
       return;
     }
@@ -76,42 +67,6 @@ if (formulario) {
       return;
     }
 
-    if (password.length < 8) {
-      mostrarMensaje('La contraseña debe tener al menos 8 caracteres.', 'error');
-      return;
-    }
-
-    const submitBtn = formulario.querySelector('button[type="submit"]');
-    if (submitBtn) submitBtn.disabled = true;
-
-    // 1. Creamos la cuenta del cliente en Supabase (si está disponible)
-    if (sb) {
-      const { error: signUpError } = await sb.auth.signUp({
-        email: email,
-        password: password,
-        options: {
-          data: {
-            full_name: nombre,
-            phone: telefono,
-            tipo: tipo,
-            descripcion: mensaje
-          },
-          emailRedirectTo: window.location.origin + window.location.pathname.replace('index.html', '') + 'login.html'
-        }
-      });
-
-      if (signUpError) {
-        if (signUpError.message && signUpError.message.toLowerCase().includes('already registered')) {
-          mostrarMensaje('Ya existe una cuenta con este email. Si es la tuya, entra directamente en tu panel.', 'error');
-        } else {
-          mostrarMensaje('No se pudo crear tu acceso privado. Escríbenos directamente si el problema persiste.', 'error');
-        }
-        if (submitBtn) submitBtn.disabled = false;
-        return;
-      }
-    }
-
-    // 2. Te avisamos a ti por email (como hasta ahora)
     // La plantilla de EmailJS solo tiene {{name}} y {{message}}, así que
     // metemos todos los datos del formulario dentro de "message".
     const mensajeCompleto =
@@ -120,16 +75,30 @@ if (formulario) {
       'Tipo de caso: ' + tipo + '\n\n' +
       'Mensaje:\n' + mensaje;
 
+    // Enlace para que el cliente cree su cuenta desde el email de confirmación,
+    // ya con los datos de su solicitud incluidos (sin tener que rellenarlos otra vez).
+    const baseUrl = window.location.origin + window.location.pathname.replace('index.html', '');
+    const crearCuentaLink = baseUrl + 'crear-cuenta.html'
+      + '?nombre=' + encodeURIComponent(nombre)
+      + '&email=' + encodeURIComponent(email)
+      + '&telefono=' + encodeURIComponent(telefono)
+      + '&tipo=' + encodeURIComponent(tipo)
+      + '&mensaje=' + encodeURIComponent(mensaje);
+
+    const submitBtn = formulario.querySelector('button[type="submit"]');
+    if (submitBtn) submitBtn.disabled = true;
+
     emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
       name: nombre,
       email: email,
-      message: mensajeCompleto
+      message: mensajeCompleto,
+      crear_cuenta_link: crearCuentaLink
     }).then(function () {
-      mostrarMensaje('✓ Solicitud enviada. Revisa tu email para confirmar tu cuenta y acceder a tu panel.', 'success');
+      mostrarMensaje('✓ Solicitud enviada correctamente. Revisa tu email: te hemos enviado un enlace para crear tu cuenta y seguir tu caso.', 'success');
       formulario.reset();
     }).catch(function (err) {
       console.error('Error enviando el formulario con EmailJS:', err);
-      mostrarMensaje('Tu acceso se ha creado, pero no se pudo enviar la notificación por email. Aun así, revisa tu correo para confirmar tu cuenta.', 'error');
+      mostrarMensaje('No se pudo enviar el formulario. Inténtalo de nuevo o escríbenos directamente por email.', 'error');
     }).finally(function () {
       if (submitBtn) submitBtn.disabled = false;
     });
