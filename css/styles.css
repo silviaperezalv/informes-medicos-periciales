@@ -486,44 +486,43 @@ header.scrolled .logo {
 .check-list {
   list-style: none;
   margin-bottom: 0;
+  padding-left: 22px;
 }
 
 .check-list li {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
+  position: relative;
   margin-bottom: 22px;
   padding-left: 0;
 }
 
 .check-list li::before {
-  content: none;
+  content: "";
+  position: absolute;
+  left: -22px;
+  top: 6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  z-index: 1;
+}
+
+.check-list li::after {
+  content: "";
+  position: absolute;
+  left: -18px;
+  top: 16px;
+  bottom: -6px;
+  width: 1px;
+  background: var(--color-border);
 }
 
 .check-list li:last-child {
   margin-bottom: 0;
 }
 
-.check-icon {
-  flex-shrink: 0;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: #EFECE6;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 1px;
-}
-
-.check-icon::before {
-  content: "";
-  width: 7px;
-  height: 11px;
-  border-right: 2px solid var(--color-primary);
-  border-bottom: 2px solid var(--color-primary);
-  transform: rotate(40deg);
-  margin-top: -2px;
+.check-list li:last-child::after {
+  display: none;
 }
 
 .check-list li strong {
@@ -617,11 +616,11 @@ header.scrolled .logo {
 
 .timeline-list li strong {
   display: block;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 18px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
   font-weight: 600;
-  color: var(--color-primary);
-  margin-bottom: 4px;
+  color: var(--color-text);
+  margin-bottom: 3px;
 }
 
 .timeline-list li p {
