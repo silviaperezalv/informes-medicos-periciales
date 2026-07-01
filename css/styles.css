@@ -493,6 +493,11 @@ header.scrolled .logo {
   align-items: flex-start;
   gap: 14px;
   margin-bottom: 22px;
+  padding-left: 0;
+}
+
+.check-list li::before {
+  content: none;
 }
 
 .check-list li:last-child {
@@ -572,6 +577,7 @@ header.scrolled .logo {
 .timeline-list li {
   position: relative;
   padding-bottom: 28px;
+  padding-left: 0;
 }
 
 .timeline-list li:last-child {
