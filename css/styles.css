@@ -506,8 +506,8 @@ header.scrolled .logo {
 
 .check-icon {
   flex-shrink: 0;
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background: #EFECE6;
   color: var(--color-primary);
@@ -518,8 +518,8 @@ header.scrolled .logo {
 }
 
 .check-icon svg {
-  width: 12px;
-  height: 12px;
+  width: 13px;
+  height: 13px;
 }
 
 .check-list li strong {
@@ -642,8 +642,8 @@ header.scrolled .logo {
 
 .reconocimiento-icon {
   flex-shrink: 0;
-  width: 42px;
-  height: 42px;
+  width: 34px;
+  height: 34px;
   color: var(--color-accent);
 }
 
