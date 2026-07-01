@@ -1564,3 +1564,234 @@ footer {
     padding: 0 30px 22px 0;
   }
 }
+
+/* ==================== ACCESO PRIVADO (login) ==================== */
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 160px 20px 80px;
+  background: var(--color-bg-light);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: 22px;
+  padding: 44px 40px;
+  box-shadow: 0 12px 40px rgba(46, 60, 54, 0.06);
+}
+
+.auth-card h1 {
+  font-size: 34px;
+  margin: 10px 0 12px;
+}
+
+.auth-subtitle {
+  font-size: 15px;
+  margin-bottom: 30px;
+  color: var(--color-text-light);
+}
+
+.auth-form .form-group {
+  margin-bottom: 20px;
+}
+
+.auth-error {
+  color: #A83232;
+  font-size: 13.5px;
+  margin-bottom: 18px;
+}
+
+.auth-help {
+  margin-top: 24px;
+  font-size: 13.5px;
+  color: var(--color-text-light);
+  text-align: center;
+}
+
+.auth-help a {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* ==================== PANEL (cliente / admin) ==================== */
+.panel-page {
+  padding: 160px 0 100px;
+  min-height: 70vh;
+  background: var(--color-bg-light);
+}
+
+.panel-page h1 {
+  font-size: 40px;
+  margin: 10px 0 12px;
+}
+
+.panel-subtitle {
+  margin-bottom: 50px;
+  color: var(--color-text-light);
+}
+
+.panel-loading,
+.panel-empty {
+  color: var(--color-text-light);
+  font-size: 15px;
+}
+
+.casos-container {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.caso-card {
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  padding: 32px;
+}
+
+.caso-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 8px;
+}
+
+.caso-card-header h3 {
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+
+.caso-fecha {
+  font-size: 13.5px;
+  color: var(--color-text-light);
+}
+
+.caso-descripcion {
+  font-size: 15px;
+  color: var(--color-text-light);
+  margin-top: 10px;
+}
+
+.estado-badge {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  background: #EFECE6;
+  color: var(--color-text);
+}
+
+.estado-recibido { background: #EAF0EC; color: var(--color-primary); }
+.estado-revision { background: #FBF1DF; color: #8a6d1f; }
+.estado-presupuesto { background: #E6F0FA; color: #1f5a8a; }
+.estado-finalizado { background: #365548; color: white; }
+
+.caso-section {
+  margin-top: 26px;
+  padding-top: 22px;
+  border-top: 1px solid var(--color-border);
+}
+
+.caso-section h4 {
+  font-size: 15px;
+  color: var(--color-primary);
+  margin-bottom: 14px;
+}
+
+.documentos-list {
+  list-style: none;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.documentos-list li {
+  font-size: 14px;
+  color: var(--color-text-light);
+}
+
+.documentos-list a {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.documentos-list a:hover {
+  text-decoration: underline;
+}
+
+.panel-empty-small,
+.panel-loading-small {
+  font-size: 13.5px;
+  color: var(--color-text-light);
+}
+
+.upload-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.upload-row input[type="file"] {
+  flex: 1;
+  min-width: 180px;
+  font-size: 13.5px;
+}
+
+.upload-row button {
+  padding: 10px 20px;
+  font-size: 14px;
+}
+
+.presupuestos-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.presupuesto-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 14.5px;
+  flex-wrap: wrap;
+}
+
+.presupuesto-row strong {
+  color: var(--color-primary);
+}
+
+.presupuesto-row a {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+  margin-left: auto;
+}
+
+.presupuesto-row a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 32px 26px;
+  }
+
+  .caso-card {
+    padding: 24px;
+  }
+
+  .caso-card-header {
+    flex-direction: column;
+  }
+}
