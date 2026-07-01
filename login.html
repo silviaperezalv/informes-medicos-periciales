@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acceso privado — Dra. Pérez Álvarez</title>
+  <meta name="robots" content="noindex">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+</head>
+
+<body>
+
+  <!-- ==================== HEADER ==================== -->
+  <header>
+    <nav class="container">
+      <a href="index.html" class="logo-wrapper" style="text-decoration:none;">
+        <img src="img/logo.png" alt="Dra. Silvia Pérez Álvarez" class="logo">
+        <span class="logo-wordmark">Dra. Silvia<br>Pérez Álvarez</span>
+      </a>
+    </nav>
+  </header>
+
+  <!-- ==================== LOGIN ==================== -->
+  <section class="auth-page">
+    <div class="auth-card">
+      <span class="eyebrow">ÁREA PRIVADA</span>
+      <h1>Acceder a tu panel</h1>
+      <p class="auth-subtitle">Introduce tus datos de acceso para consultar el estado de tu caso.</p>
+
+      <form id="loginForm" class="auth-form" novalidate>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required autocomplete="email">
+        </div>
+
+        <div class="form-group">
+          <label for="password">Contraseña</label>
+          <input type="password" id="password" name="password" required autocomplete="current-password">
+        </div>
+
+        <p id="authError" class="auth-error" hidden></p>
+
+        <button type="submit" class="btn btn-primary btn-block" id="loginBtn">Entrar</button>
+      </form>
+
+      <p class="auth-help">¿No tienes acceso todavía? <a href="index.html#contacto">Solicita tu valoración</a> y te lo activaremos.</p>
+    </div>
+  </section>
+
+  <script>
+    // Por seguridad: si por lo que sea la URL trae datos (email/contraseña
+    // guardados en el historial de un intento anterior), los borramos
+    // de la barra de direcciones sin recargar la página.
+    if (window.location.search) {
+      history.replaceState(null, '', window.location.pathname);
+    }
+
+    const form = document.getElementById('loginForm');
+    const errorEl = document.getElementById('authError');
+    const btn = document.getElementById('loginBtn');
+
+    function showError(msg) {
+      errorEl.textContent = msg;
+      errorEl.hidden = false;
+    }
+
+    // Enganchamos el evento del formulario ANTES de nada más,
+    // para que nunca se envíe "a la antigua" aunque algo falle después.
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+    });
+
+    if (typeof window.supabase === 'undefined') {
+      showError('No se ha podido cargar el sistema de acceso. Comprueba tu conexión y recarga la página.');
+    } else {
+      iniciarLogin();
+    }
+
+    function iniciarLogin() {
+      const SUPABASE_URL = 'https://wijnmofhphfcnsioyvxw.supabase.co';
+      const SUPABASE_KEY = 'sb_publishable_BsBDw028Yev-jqYTPrPL2A_Ol0cAXkk';
+      const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+      async function redirectByRole(userId) {
+        const { data: profile, error } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', userId)
+          .single();
+
+        if (error || !profile) {
+          showError('No se ha encontrado tu perfil. Contacta con la clínica.');
+          return;
+        }
+
+        if (profile.role === 'admin') {
+          window.location.href = 'panel-admin.html';
+        } else {
+          window.location.href = 'panel-cliente.html';
+        }
+      }
+
+      // Si ya hay sesión activa, redirige directamente
+      supabase.auth.getSession().then(({ data }) => {
+        if (data.session) {
+          redirectByRole(data.session.user.id);
+        }
+      });
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        errorEl.hidden = true;
+        btn.disabled = true;
+        btn.textContent = 'Entrando...';
+
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+        if (error) {
+          showError('Email o contraseña incorrectos.');
+          btn.disabled = false;
+          btn.textContent = 'Entrar';
+          return;
+        }
+
+        await redirectByRole(data.user.id);
+      });
+    }
+  </script>
+
+</body>
+</html>
