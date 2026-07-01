@@ -1718,6 +1718,35 @@ footer {
 .documentos-list li {
   font-size: 14px;
   color: var(--color-text-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 0;
+}
+
+.documento-nombre {
+  flex: 1;
+}
+
+.documento-borrar {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: white;
+  color: var(--color-text-light);
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1;
+  transition: all 0.2s ease;
+}
+
+.documento-borrar:hover {
+  background: #A83232;
+  border-color: #A83232;
+  color: white;
 }
 
 .documentos-list a {
